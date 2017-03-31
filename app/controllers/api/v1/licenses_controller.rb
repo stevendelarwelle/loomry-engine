@@ -1,4 +1,6 @@
 class Api::V1::LicensesController < Api::V1::BaseController
+  
+  
   def show
     key = params[:license_key]
     license = License.find_by(:license_key => key)
@@ -111,18 +113,3 @@ class Api::V1::LicensesController < Api::V1::BaseController
   end    
     
 end
-# # posts_controller.rb
-# class PostsController < ApplicationController
-#   def dashboard
-#     render json: @post, user_id: 12
-#   end
-# end
-
-# # post_serializer.rb
-# class PostSerializer < ActiveModel::Serializer
-#   attributes :id, :title, :body
-
-#   def comments_by_me
-#     Comments.where(user_id: instance_options[:user_id], post_id: object.id)
-#   end
-# end
