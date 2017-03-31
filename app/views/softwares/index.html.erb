@@ -1,0 +1,33 @@
+
+
+<h1>Software</h1>
+
+<div class='container'>
+  <table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Software key</th>
+      <th>API key</th>
+      <th>Licenses</th>
+      <th>Need to add email</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @software.each do |software| %>
+      <tr>
+        <td><%= software.name %></td>
+        <td><%= software.software_key %></td>
+        <td><%= software.api_key %></td>
+        <td><%= get_license_count_by_software(software.id) %></td>
+        <td><%= link_to 'Show', software %> | <%= link_to 'Edit', edit_software_path(software) %> | <%= link_to 'Destroy', software, method: :delete, data: { confirm: 'Are you sure?' } %> |
+        <%= link_to 'Add License', new_license_path %></td>
+        
+      </tr>
+    <% end %>
+  </tbody>
+  </table>
+</div>
+
+

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+<div class='row'>
+  <div class='col-md-4 col-md-offset-4'>
+<p>
+  <strong>Software:</strong>
+  <%= @license.software_id %>
+</p>
+
+<p>
+  <strong>License key:</strong>
+  <%= @license.license_key %>
+</p>
+<p>
+  <strong>Email:</strong>
+  <%= @license.email %>
+</p>
+<p>
+  <strong>Expiration date:</strong>
+  <%= @license.expiration_date %>
+</p>
+
+<p>
+  <strong>Is active:</strong>
+  <%= @license.is_active %>
+</p>
+
+<%= link_to 'Edit', edit_license_path(@license) %> |
+<%= link_to 'Back', licenses_path %>
+</div>
+</div>

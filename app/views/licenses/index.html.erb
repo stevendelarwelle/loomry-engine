@@ -1,0 +1,37 @@
+
+
+<div class='container'>
+  <h1>All Licenses</h1>
+  <table class="table table-hover">
+
+  <thead>
+    <tr>
+      <th>Software</th>
+      <th>License key</th>
+      <th>Email</th>
+      <th>Expiration date</th>
+      <th>Is active</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @licenses.each do |license| %>
+      <tr>
+        <td><%= get_software_name(license.software_id) %></td>
+        <td><%= license.license_key %></td>
+        <td><%= license.email %></td>
+        <td><%= license.expiration_date %></td>
+        <td><%= license.is_active %></td>
+        <td><%= link_to 'View', license %> | <%= link_to 'Edit', edit_license_path(license) %> | <%= link_to 'Destroy', license, method: :delete, data: { confirm: 'Are you sure?' } %>
+        | <%= link_to 'New License', new_license_path %></td>
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
+</div>

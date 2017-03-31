@@ -1,0 +1,53 @@
+<div class="container ">
+		<div class="row">
+		   <% @plans.each do |plan| %>
+				<div class="col-md-4">
+				    <% if plan.highlight? %>
+				      <div class="panel panel-warning">
+				    <% else %>
+				      <div class="panel panel-info">
+				    <% end %>
+						
+								<div class="panel-heading">
+										<h3 class="text-center"><%= plan.name %></h3>
+										<p class="text-center"><% if Koudoku.free_trial? %>
+                    <%= Koudoku.free_trial_length %>-day Free Trial
+                    <% end %></p>
+								</div>
+								<div class="panel-body text-center">
+										<p class="lead" style="font-size:30px"><strong><%= plan_price(plan) %></strong></p>
+								</div>
+								<ul class="list-group list-group-flush text-center">
+										
+                    <%= BlueCloth.new(plan.features.gsub(/\n/, "\n\n")).to_html.gsub(/<(\/?)p>/, '<\1li class="list-group-item">').html_safe %>
+								</ul>
+								<div class="panel-footer"> 
+								<% if @subscription.nil? %>
+                  <%= link_to Koudoku.free_trial? ? 'Start Trial' : 'Sign Up', koudoku.new_subscription_path(plan: plan.id), class: "btn btn-lg btn-block btn-primary" %>
+                <% elsif @subscription.persisted? %>
+                  <% if @subscription.plan == plan %>
+                    <%= form_for @subscription, url: owner_subscription_path(@owner, @subscription) do |f| %>
+                    <%= f.submit 'Selected', class: "btn btn-lg btn-block btn-default", disabled: 'disabled' %>
+                  <% end %>
+                <% else %>
+                  <%= form_for @subscription, url: owner_subscription_path(@owner, @subscription) do |f| %>
+                  <%= f.hidden_field :plan_id, value: plan.id %>
+                  <%= f.submit @subscription.describe_difference(plan), class: "btn btn-lg btn-block btn-primary" %>
+                  <% end %>
+                <% end %>
+                <% else %>
+                  <%= link_to Koudoku.free_trial? ? 'Start Trial' : 'Upgrade', new_owner_subscription_path(@owner, plan: plan.id), class: "btn btn-lg btn-block btn-primary" %>
+                <% end %>
+                </div>
+						</div>
+				</div>
+				<% end %>
+		</div>
+		<% if !current_user %>
+		 <h4><%= link_to "Or you can sign up for FREE and get 1 Software and 5 Licenses", main_app.new_user_registration_path %></h4>
+		<% end %>
+
+ <div class="span3 social-proof">
+    <%= render 'koudoku/subscriptions/social_proof' %>
+  </div>
+</div>
